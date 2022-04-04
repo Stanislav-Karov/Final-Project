@@ -58,7 +58,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new NotEnoughCashException(String.format(NOT_ENOUGH_CASH,
                     Math.abs(totalSum - purchaseRequestDto.getCashAmount())));
         }
-        purchaseResponseDto.setTotalPrice(totalSum);
+        purchaseResponseDto.setTotalPrice(Double.parseDouble(String.format("%.2f", totalSum)));
         purchaseResponseDto.setExecutedPayment(LocalDate.now());
 
         Purchase purchase = new Purchase();
@@ -69,7 +69,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setItems(items);
         purchase.setPaymentType(purchaseRequestDto.getPaymentType());
         purchase.setCashAmount(purchaseRequestDto.getCashAmount());
-        purchase.setTotalPrice(totalSum);
+        purchase.setTotalPrice(Double.parseDouble(String.format("%.2f", totalSum)));
         purchaseRepository.save(purchase);
 
         return purchaseResponseDto;
